@@ -4,6 +4,21 @@ import logging
 from dotenv import load_dotenv
 import os
 import json
+from flask import Flask
+from threading import Thread
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "I'm alive!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
 
 load_dotenv()
 
@@ -150,4 +165,5 @@ async def lenh(ctx):
     # message_content +="!xoa : xóa bộ nhớ.\n"
     await ctx.send(message_content)
 #---------------------------------------------------------------------------------------------
+keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
