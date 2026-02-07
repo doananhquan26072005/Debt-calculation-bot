@@ -60,7 +60,7 @@ def load_data_from_db():
             guild_id = doc["_id"]
             data = doc["data"]
             bot_memory[guild_id] = data
-        print(f"📥 Đã tải dữ liệu của {len(bot_memory)} server từ MongoDB.")
+        print(f"Đã tải dữ liệu của {len(bot_memory)} server từ MongoDB.")
     except Exception as e:
         print(f"Lỗi tải dữ liệu: {e}")
 
@@ -88,7 +88,7 @@ def get_guild_data(ctx):
 #---------------------------------------------------------------------------------------------
 @bot.event
 async def on_ready():
-    load_data_from_db() # <--- ĐÃ SỬA: Thêm dòng này để tải dữ liệu cũ về
+    load_data_from_db() 
     print(f"We are ready to go in, {bot.user.name}.")
 
 # !no
@@ -165,7 +165,6 @@ async def tra(ctx, name1: str, name2: str, value: int):
     data[name1][name2] -= value
     data[name2][name1] += value
     
-    # <--- ĐÃ SỬA: Thay save_data() bằng hàm lưu mới
     save_guild_data(str(ctx.guild.id))
 
     if data[name1][name2] == 0:
